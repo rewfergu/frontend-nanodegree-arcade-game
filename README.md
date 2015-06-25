@@ -1,6 +1,7 @@
-frontend-nanodegree-arcade-game
-===============================
+#Udacity Project 2
+Arcade demo for the Front-End Developer Nanodegree Program
 
-Students should use this rubric: https://www.udacity.com/course/viewer#!/c-ud015/l-3072058665/m-3072588797
+###Objective
+Move the player up the screen using the arrow keys. Avoid the bugs and the water.
 
-for self-checking their submission.
+[Live demo](www.google.com)

@@ -82,6 +82,9 @@ var Player = function() {
         if (this.y > 0) {
           this.y -= window.gameGrid.cellHeight;
         }
+        if (this.y < window.gameGrid.cellHeight) {
+          this.reset();
+        }
         break;
       case 'down':
         if (this.y < window.gameGrid.cellHeight * 5) {
