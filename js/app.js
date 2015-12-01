@@ -89,7 +89,7 @@ restartGameBtn.addEventListener('click', function(event) {
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
-document.addEventListener('keyup', function(e) {
+document.addEventListener('keydown', function(e) {
   var allowedKeys = {
     37: 'left',
     38: 'up',
@@ -99,6 +99,9 @@ document.addEventListener('keyup', function(e) {
 
   player.handleInput(allowedKeys[e.keyCode]);
 });
+
+//var listener = new window.keypress.Listener();
+
 
 function checkTerrain(block) {
   switch (block) {
