@@ -1,15 +1,18 @@
+var GAME = GAME || {};
+
 var Engine = (function(global) {
 
   // setup the canvas
   var doc = global.document;
   var win = global.window;
-  var canvas = doc.createElement('canvas');
+  var canvas = doc.getElementById('canvas');
   var ctx = canvas.getContext('2d');
   var lastTime;
+  var mapTiles;
 
-  canvas.width = global.gameGrid.width;
-  canvas.height = global.gameGrid.height;
-  doc.body.appendChild(canvas);
+  canvas.width = GAME.grid.width;
+  canvas.height = GAME.grid.height;
+  //doc.body.appendChild(canvas);
 
   // main game loop
   function main() {
@@ -50,22 +53,19 @@ var Engine = (function(global) {
 
   // This function initially draws the "game level"
   function render() {
-    var rowImages = [
-      'images/water-block.png',   // Top row is water
-      'images/stone-block.png',   // Row 1 of 3 of stone
-      'images/stone-block.png',   // Row 2 of 3 of stone
-      'images/stone-block.png',   // Row 3 of 3 of stone
-      'images/grass-block.png',   // Row 1 of 2 of grass
-      'images/grass-block.png'    // Row 2 of 2 of grass
-    ];
-    var numRows = 6;
-    var numCols = 5;
+    var numRows = GAME.grid.height / GAME.grid.cellHeight;
+    var numCols = GAME.grid.width / GAME.grid.cellWidth;
     var row;
     var col;
 
     for (row = 0; row < numRows; row++) {
       for (col = 0; col < numCols; col++) {
-        ctx.drawImage(Resources.get(rowImages[row]), col * global.gameGrid.cellWidth, row * global.gameGrid.cellHeight);
+        var image = GAME.tileImages[GAME.tileMap[col + (numCols * row)]];
+
+        ctx.drawImage(Resources.get(image), col * GAME.grid.cellWidth, row * GAME.grid.cellHeight, GAME.grid.cellWidth, GAME.grid.cellHeight);
+
+        //ctx.drawImage(Resources.get(image), col * GAME.grid.cellWidth, row * GAME.grid.cellHeight);
+
       }
     }
 
@@ -73,6 +73,12 @@ var Engine = (function(global) {
   }
 
   function renderEntities() {
+    GAME.treasureMap.forEach(function(gem) {
+      if (!gem.collected) {
+        gem.render(ctx);
+      }
+    });
+
     /* Loop through all of the objects within the allEnemies array and call
      * the render function you have defined.
      */
@@ -80,7 +86,11 @@ var Engine = (function(global) {
       enemy.render(ctx);
     });
 
-    player.render(ctx);
+    if (GAME.begin) {
+      player.render(ctx);
+    } else {
+      GAME.reset();
+    }
   }
 
   /* This function does nothing but it could have been a good place to
@@ -92,11 +102,22 @@ var Engine = (function(global) {
   }
 
   Resources.load([
-    'images/stone-block.png',
-    'images/water-block.png',
     'images/grass-block.png',
+    'images/grass-block.png',
+    'images/water-block.png',
+    'images/stone-corner-topright.png',
+    'images/water-corner-bottomleft.png',
+    'images/water-corner-bottomright.png',
+    'images/water-corner-topleft.png',
+    'images/water-corner-topright.png',
+    'images/stone-block.png',
+    'images/stone-corner-bottomleft.png',
+    'images/stone-corner-bottomright.png',
+    'images/stone-corner-topleft.png',
+
     'images/enemy-bug.png',
-    'images/char-boy.png'
+    'images/char-boy.png',
+    'images/Gem-Orange.png',
   ]);
   Resources.onReady(init);
 
