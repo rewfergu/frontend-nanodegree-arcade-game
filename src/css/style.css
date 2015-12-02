@@ -1,0 +1,46 @@
+body {
+    text-align: center;
+    background: #243520;
+    font-family: "Press Start 2P";
+}
+main {
+  width: 800px;
+  margin: 50px auto;
+  position: relative;
+}
+canvas {
+  background: #000;
+}
+section {
+  background: white;
+  overflow: auto;
+  color: #4E66D2;
+}
+.score {
+  float: left;
+  padding: .5rem;
+}
+.lives {
+  float: right;
+  padding: .5rem;
+}
+.gameOver, .beginGame, .win {
+  position: absolute;
+  width: 400px;
+  top: 250px;
+  left: 200px;
+  background: rgba(255, 255, 255, .75);
+  padding: 1rem;
+  border: 1px solid black;
+  display: none;
+}
+button {
+  font-family: "Press Start 2P";
+  border: none;
+  border-radius: 0;
+  background: #4FA03C;
+  padding: 1rem;
+}
+.active {
+  display: block;
+}

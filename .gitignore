@@ -1,1 +1,5 @@
+dist/
 images/archive
+images/*.psd
+*.ai
+*.tmx
